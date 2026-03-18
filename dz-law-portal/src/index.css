@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Cairo', 'Arial', sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* RTL support for Arabic */
+[dir="rtl"] {
+  font-family: 'Cairo', 'Amiri', 'Arial', sans-serif;
+}
+
+/* Chat scrollbar */
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-messages::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #10b981;
+  border-radius: 3px;
+}
