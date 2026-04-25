@@ -1,0 +1,40 @@
+modules = ["nodejs-24"]
+
+[[artifacts]]
+id = "artifacts/api-server"
+
+[[artifacts]]
+id = "artifacts/mockup-sandbox"
+
+[deployment]
+router = "application"
+deploymentTarget = "autoscale"
+build = ["sh", "-c", "pnpm install && pnpm --filter @workspace/api-server run build"]
+run = ["node", "artifacts/api-server/dist/index.cjs"]
+
+[deployment.postBuild]
+args = ["pnpm", "store", "prune"]
+env = { "CI" = "true" }
+
+[workflows]
+runButton = "Project"
+
+[agent]
+stack = "PNPM_WORKSPACE"
+expertMode = true
+integrations = ["github:1.0.0"]
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 20000
+
+[nix]
+channel = "stable-25_05"
+
+[userenv]
+
+[userenv.shared]
+API_BASE_URL = "https://api.dzlaw.replit.app"
+APP_BASE_URL = "https://legal-algeria-hub.replit.app"
+CHARGILY_MODE = "test"
+CHARGILY_KEY = "test_sk_oAvum1Tuj4nCNWDn4mDWnp4K4FEpjaOYaxwTCkVi"
