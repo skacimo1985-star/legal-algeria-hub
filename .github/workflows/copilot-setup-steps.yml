@@ -1,0 +1,35 @@
+name: CI - Build & Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # نفس نسخة Node المستعملة عندك محلياً
+
+      - name: Install dependencies
+        run: |
+          cd dz-law-portal
+          npm install
+
+      - name: Run lint
+        run: |
+          cd dz-law-portal
+          npm run lint
+
+      - name: Run build
+        run: |
+          cd dz-law-portal
+          npm run build
